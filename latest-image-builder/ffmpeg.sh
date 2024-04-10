@@ -19,24 +19,21 @@
   echo "deb http://deb.debian.org/debian experimental main" >> /etc/apt/sources.list.d/experimental.list
 
 # APT Update
-  apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update
-
-# Install One SPECIFIC dependency for FFmpeg6 deb
-  apt-get satisfy "libjxl0.7 (>= 0.7.0)" -y --no-install-recommends
+  apt-get update
 
 # Install FFmpeg6 deb
-  apt-get -t experimental install ffmpeg -y --no-install-recommends
+  apt-get install ffmpeg -y
 
 # Important for ARMHF
 arch=$(uname -m)
 case $(arch) in
-		'arm' | 'armv6l' | 'armv7l')
+                'arm' | 'armv6l' | 'armv7l')
 
-			# The follwing is MUST!
-			apt-get install -y libatlas-base-dev libatlas3-base  --no-install-recommends
-			# The Following is OPTIONAL but recommanded
-#			apt-get -t experimental install -y glibc-source --no-install-recommends
+                        # The follwing is MUST!
+                        apt-get install -y libatlas-base-dev libatlas3-base  --no-install-recommends
+                        # The Following is OPTIONAL but recommanded
+#                       apt-get -t experimental install -y glibc-source --no-install-recommends
 #                       apt-get install -y coturn
-		;;
-	esac
+                ;;
+        esac
 exit 0
